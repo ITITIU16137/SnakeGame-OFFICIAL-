@@ -1,3 +1,5 @@
-﻿
-Ae nhớ check mail để contribute đc nha
-T sẽ sửa Begin Scrren theem 
+﻿Dương LEADER
+
+ANNOUNCEMENT:
+
+Be ready for Final Presentation!!!
