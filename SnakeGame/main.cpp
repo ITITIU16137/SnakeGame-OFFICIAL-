@@ -75,7 +75,10 @@ int main()
             changeDirection(getch());
         }
     }
-
+   if(!gameRunning)
+   {
+       playSound("b.wav",0);
+   }
     gotoxy(55,20);
     cout<<"   GAME OVER!!!!!!!"<<endl;
     gotoxy(0,25);
