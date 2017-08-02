@@ -157,7 +157,7 @@ void checkGame()
         }
     }
     
-    if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)
+    if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)   //  crash wall will die
     {
         gameRunning=false;
     }
