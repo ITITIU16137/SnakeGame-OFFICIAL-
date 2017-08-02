@@ -7,48 +7,52 @@ using namespace std;
 //----------------------------------------Declaration----------------------------------------------------
 const int H=20;
 const int W=40;
-char box[H*W];
 const int speed=50;
-int tail[H*W];
-bool gameRunning=true;
 int foodPos=0;
+char box[H*W];
+int tail[H*W];
 int position=H*W/2-W/2;
-char food = char(254), head= char(219),Tail=char(176);
-char hrz=char(205),vtc=char(186),agl1=char(201),agl2=char(187),agl3=char(200),agl4=char(188);
-//-----------------------------------------Headers---------------------------------------------------------------
-void ShowConsoleCursor(bool showFlag); // to hide the cursor
-void gotoxy(int x, int y);
-void foodRand();
+int score=0;
+bool gameRunning=true;
+char food = 254, head= 219,Tail=176;
+char hrz=205,vtc=186,agl1=201,agl2=187,agl3=200,agl4=188;
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+DWORD WINAPI GetTickCount();
+//----------------------------------------Headers--------------------------------------------------------
+void mapDesign();
 void scoreScreen();
 void scoreCount();
-void makeTail();
-void drawHead(int x);
-void changeDirection(char key);
-void mapDesign();
+void ShowConsoleCursor(bool showFlag); // to hide the cursor
+void gotoxy(int x, int y);             // to move the cursor to the beginning place
 void mapScreen();
 void redrawScreen();
 void checkGame();
-//------------------------------------------------------------------------------------------
-int UP();
+void foodRand();
+void makeTail();
+
+int UP(int &x);
 int DOWN(int &x);
 int RIGHT(int &x);
-int LEFT(int &x);         // to move the cursor to the beginning place
-HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-DWORD WINAPI GetTickCount();
-//-----------------------------------------Run Program--------------------------------------------------------------------------------------
+int LEFT(int &x);
 
+void drawHead(int x);
+void changeDirection(char key);
+//-----------------------------------------Run Program--------------------------------------------------
 int main()
 {
     SetConsoleTextAttribute(hConsole, 11);
     ShowConsoleCursor(false);
+    mapDesign();
     drawHead(position);
+    mapScreen();
     tail[position]=1;
-     for(int i=0;i<H*W;i++)
+
+    for(int i=0;i<H*W;i++)
     {
         tail[i]=0;
     }
 
-    while(position>=W && position<=H*W-W && position%W!=0 && (position+1)%W!=0)
+    while(gameRunning)
     {
         if(kbhit())
         {
@@ -58,31 +62,11 @@ int main()
     gotoxy(55,14);
     cout<<"   Game Over!!!!!!!"<<endl;
     gotoxy(0,25);
+    //cout<<tail[H*W/2-W/2]<<endl;
     system("pause");
     return 0;
 }
-//---------------------------------------------------------------------------------------------------------------
-void gotoxy(int x, int y) {
-    COORD pos = {x, y};
-    HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleCursorPosition(output, pos);
-}
 
-void ShowConsoleCursor(bool showFlag)
-{
-    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    CONSOLE_CURSOR_INFO     cursorInfo;
-
-    GetConsoleCursorInfo(out, &cursorInfo);
-    cursorInfo.bVisible = showFlag; // set the cursor visibility
-    SetConsoleCursorInfo(out, &cursorInfo);
-}
-//---------------------------------------------------------------------------------------------------------------
-void drawHead(int x)
-{
-    box[x]=head;
-}
 void changeDirection(char key)
 {
     //box[position]=' ';
@@ -92,7 +76,7 @@ void changeDirection(char key)
         while(kbhit()!=1 && gameRunning)
         {
             redrawScreen();
-            UP();
+            UP(position);
         }
     case 's':
         while(kbhit()!=1 && gameRunning)
@@ -114,63 +98,58 @@ void changeDirection(char key)
         }
     }
 }
-void makeTail()
+
+void redrawScreen()
 {
-    for(int i=0;i<W*H;i++)
+    mapDesign();
+    tail[position]=1;
+    checkGame();
+    Sleep(speed);
+    gotoxy(0,0);
+    drawHead(position);
+    makeTail();
+    mapScreen();
+    //tail[position]=1;
+    //makeTail();
+    for(int i=0;i<H*W;i++)
     {
-        if(tail[i]>0)
+        if(tail[i]==0)
         {
-            tail[i]++;
+            box[i]=' ';
         }
-        if(tail[i]==score+2)
+        else
         {
-            tail[i]=0;
+            box[i]=Tail;
         }
     }
-}
-//--------------------------------------------
-int UP()
-{
-   position=position-W;
+
+    //box[position]=' ';
 }
 
-int DOWN(int &x)
-{
-    x=x+W;
-}
 
-int RIGHT(int &x)
-{
-    x=x+1;
-}
 
-int LEFT(int &x)
+//-------------------------------------------------------------------------------------------------------------
+void checkGame()
 {
-    x=x-1;
-}
-//------------------------------------------------------------------------------------------------------
-void scoreScreen()
-{
-    gotoxy(60,10);
-    cout<<"Score: "<<score;
-}
-
-void scoreCount()
-{
-    if(position==foodPos)
+    for(int i=0;i<H*W;i++)
     {
-        score++;
+        if(tail[i]==score)
+        {
+            break;
+        }
+        else if(i==H*W-W)
+        {
+            gameRunning=false;
+            break;
+        }
     }
-}
-void foodRand()
-{
-    while(foodPos<W || foodPos>H*W-W || foodPos%W==0 || (foodPos+1)%W==0 || position==foodPos || tail[foodPos]>0)
+    if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)
     {
-        srand(GetTickCount());
-        foodPos=rand()%(H*W);
+        gameRunning=false;
     }
+
 }
-//---------------------------------------------------------------------------------------------------
+
 void mapDesign()
 {
     scoreCount();
@@ -223,50 +202,86 @@ void mapScreen()
     }
 }
 
-void redrawScreen()
+void drawHead(int x)
 {
-    mapDesign();
-    tail[position]=1;
-    checkGame();
-    Sleep(speed);
-    gotoxy(0,0);
-    drawHead(position);
-    makeTail();
-    mapScreen();
-    //tail[position]=1;
-    //makeTail();
-    for(int i=0;i<H*W;i++)
-    {
-        if(tail[i]==0)
-        {
-            box[i]=' ';
-        }
-        else
-        {
-            box[i]=Tail;
-        }
-    }
-
-    //box[position]=' ';
+    box[x]=head;
 }
 
-void checkGame()
+void foodRand()
 {
-    for(int i=0;i<H*W;i++)
+    while(foodPos<W || foodPos>H*W-W || foodPos%W==0 || (foodPos+1)%W==0 || position==foodPos || tail[foodPos]>0)
     {
-        if(tail[i]==score)
-        {
-            break;
-        }
-        else if(i==H*W-W)
-        {
-            gameRunning=false;
-            break;
-        }
+        //foodPos=0;
+        srand(GetTickCount());
+        foodPos=rand()%(H*W);
     }
-    if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)
-    {
-        gameRunning=false;
-    }
+}
 
+void makeTail()
+{
+    for(int i=0;i<W*H;i++)
+    {
+        if(tail[i]>0)
+        {
+            tail[i]++;
+        }
+        if(tail[i]==score+2)
+        {
+            tail[i]=0;
+        }
+    }
+}
+
+//--------------------------------------------
+int UP(int &x)
+{
+   x=x-W;
+}
+
+int DOWN(int &x)
+{
+    x=x+W;
+}
+
+int RIGHT(int &x)
+{
+    x=x+1;
+}
+
+int LEFT(int &x)
+{
+    x=x-1;
+}
+
+
+//---------------------------------------------------------------------------------------------------------------
+void gotoxy(int x, int y) {
+    COORD pos = {x, y};
+    HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleCursorPosition(output, pos);
+}
+
+void ShowConsoleCursor(bool showFlag)
+{
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    CONSOLE_CURSOR_INFO     cursorInfo;
+
+    GetConsoleCursorInfo(out, &cursorInfo);
+    cursorInfo.bVisible = showFlag; // set the cursor visibility
+    SetConsoleCursorInfo(out, &cursorInfo);
+}
+
+void scoreScreen()
+{
+    gotoxy(60,10);
+    cout<<"Score: "<<score;
+}
+
+void scoreCount()
+{
+    if(position==foodPos)
+    {
+        score++;
+    }
 }
