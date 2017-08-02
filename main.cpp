@@ -14,7 +14,7 @@ int foodPos=0;
 int position=H*W/2-W/2;
 char food = char(254), head= char(219),Tail=char(176);
 char hrz=char(205),vtc=char(186),agl1=char(201),agl2=char(187),agl3=char(200),agl4=char(188);
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------Headers---------------------------------------------------------------
 void ShowConsoleCursor(bool showFlag); // to hide the cursor
 void gotoxy(int x, int y);
 void foodRand();
@@ -23,13 +23,13 @@ void scoreCount();
 void makeTail();
 void drawHead(int x);
 void changeDirection(char key);
-//-----------------------------------------Run Program-------------------------------------------------
+//------------------------------------------------------------------------------------------
 int UP();
 int DOWN(int &x);
 int RIGHT(int &x);
 int LEFT(int &x);         // to move the cursor to the beginning place
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//----------------------------------------Headers---------------------------------------------------------------------------------------
+//-----------------------------------------Run Program--------------------------------------------------------------------------------------
 
 int main()
 {
