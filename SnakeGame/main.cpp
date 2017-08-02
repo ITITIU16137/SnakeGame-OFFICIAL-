@@ -3,7 +3,11 @@
 #include <conio.h>
 #include <ctime>
 #include <cstdlib>
+
+#include "menuStart.h"
+#include "setConsole.h"
 #include "Sound.h"
+
 using namespace std;
 //----------------------------------------Declaration----------------------------------------------------
 const int H=20;
@@ -23,8 +27,8 @@ DWORD WINAPI GetTickCount();
 void mapDesign();
 void scoreScreen();
 void scoreCount();
-void ShowConsoleCursor(bool showFlag); // to hide the cursor
-void gotoxy(int x, int y);            // to move the cursor to the beginning place
+//void ShowConsoleCursor(bool showFlag); // to hide the cursor
+//void gotoxy(int x, int y);            // to move the cursor to the beginning place
 void ConsoleSetup();
 void mapScreen();
 void redrawScreen();
@@ -73,7 +77,7 @@ int main()
     }
 
     gotoxy(55,20);
-    cout<<"   Game Over!!!!!!!"<<endl;
+    cout<<"   GAME OVER!!!!!!!"<<endl;
     gotoxy(0,25);
     //cout<<tail[H*W/2-W/2]<<endl;
     system("pause");
@@ -268,7 +272,7 @@ int LEFT(int &x)
 
 
 //---------------------------------------------------------------------------------------------------------------
-void gotoxy(int x, int y) {
+/*void gotoxy(int x, int y) {
     COORD pos = {x, y};
     HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(output, pos);
@@ -283,7 +287,7 @@ void ShowConsoleCursor(bool showFlag)
     GetConsoleCursorInfo(out, &cursorInfo);
     cursorInfo.bVisible = showFlag; // set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
-}
+}*/
 
 void scoreScreen()
 {
