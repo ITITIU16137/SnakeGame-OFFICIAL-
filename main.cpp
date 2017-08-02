@@ -7,6 +7,7 @@ using namespace std;
 //----------------------------------------Declaration----------------------------------------------------
 const int H=20;
 const int W=40;
+char box[H*W];
 const int speed=50;
 int tail[H*W];
 bool gameRunning=true;
