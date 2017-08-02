@@ -2,7 +2,7 @@
 #include <conio.h>
 #include "menuStart.h"
 #include "setConsole.h"
-
+#include "Sound.h"
 
 using namespace std;
 
@@ -19,10 +19,10 @@ void menuStart()
     cout << "\\___ \\/    //    \\ )  (  ) _)   ( (_ \\/    \\/ \\/ \\ ) _) \n";
     gotoxy(30,13);
     cout << "(____/\\_)__)\\_/\\_/(__\\_)(____)   \\___/\\_/\\_/\\_)(_/(____)";
-
+    playSound("c.wav",1);
     gotoxy(45,17);
     cout<<"PRESS ANY BUTTON TO PLAY";
-
+    
 
 
     while(kbhit()!=1)
