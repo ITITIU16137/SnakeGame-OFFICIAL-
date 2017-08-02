@@ -23,6 +23,10 @@
 		<Unit filename="Sound.cpp" />
 		<Unit filename="Sound.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menuStart.cpp" />
+		<Unit filename="menuStart.h" />
+		<Unit filename="setConsole.cpp" />
+		<Unit filename="setConsole.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

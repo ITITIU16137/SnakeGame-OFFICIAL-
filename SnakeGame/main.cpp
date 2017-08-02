@@ -46,6 +46,9 @@ void changeDirection(char key);
 //-----------------------------------------Run Program--------------------------------------------------
 int main()
 {
+    menuStart();
+    system("cls");
+
     playSound("a.wav",1);
     SetConsoleTextAttribute(hConsole, 11);
     ShowConsoleCursor(false);
@@ -159,7 +162,7 @@ void checkGame()
             gameRunning=false;
         }
     }
-    
+
     if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)   //  crash wall will die
     {
         gameRunning=false;
