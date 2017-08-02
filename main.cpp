@@ -10,15 +10,26 @@ const int W=40;
 const int speed=50;
 int tail[H*W];
 bool gameRunning=true;
-
+int foodPos=0;
+int position=H*W/2-W/2;
+char food = char(254), head= char(219),Tail=char(176);
+char hrz=char(205),vtc=char(186),agl1=char(201),agl2=char(187),agl3=char(200),agl4=char(188);
+//--------------------------------------------------------------------------------------------------------
 void ShowConsoleCursor(bool showFlag); // to hide the cursor
 void gotoxy(int x, int y);
+void foodRand();
+void scoreScreen();
+void scoreCount();
+void makeTail();
+void drawHead(int x);
+void changeDirection(char key);
+//-----------------------------------------Run Program-------------------------------------------------
 int UP();
 int DOWN(int &x);
 int RIGHT(int &x);
 int LEFT(int &x);         // to move the cursor to the beginning place
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//----------------------------------------Headers--------------------------------------------------------
+//----------------------------------------Headers---------------------------------------------------------------------------------------
 
 int main()
 {
@@ -130,4 +141,26 @@ int RIGHT(int &x)
 int LEFT(int &x)
 {
     x=x-1;
+}
+//------------------------------------------------------------------------------------------------------
+void scoreScreen()
+{
+    gotoxy(60,10);
+    cout<<"Score: "<<score;
+}
+
+void scoreCount()
+{
+    if(position==foodPos)
+    {
+        score++;
+    }
+}
+void foodRand()
+{
+    while(foodPos<W || foodPos>H*W-W || foodPos%W==0 || (foodPos+1)%W==0 || position==foodPos || tail[foodPos]>0)
+    {
+        srand(time(GetTickCount()));
+        foodPos=rand()%(H*W);
+    }
 }
