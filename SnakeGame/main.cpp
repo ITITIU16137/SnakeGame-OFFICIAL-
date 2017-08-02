@@ -119,8 +119,9 @@ void changeDirection(char key)
 void redrawScreen()
 {
     mapDesign();
-    tail[position]=1;
     checkGame();
+    tail[position]=1;
+    //checkGame();
     Sleep(speed);
     gotoxy(0,0);
     drawHead(position);
@@ -148,18 +149,14 @@ void redrawScreen()
 //-------------------------------------------------------------------------------------------------------------
 void checkGame()
 {
-    for(int i=0;i<H*W;i++)
+    for(int i=0;i<H*W;i++)                // crash tail will die
     {
-        if(tail[i]==score)
-        {
-            break;
-        }
-        else if(i==H*W-W)
+        if(tail[i]>1 && i==position)
         {
             gameRunning=false;
-            break;
         }
     }
+    
     if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)
     {
         gameRunning=false;
