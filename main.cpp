@@ -23,6 +23,10 @@ void scoreCount();
 void makeTail();
 void drawHead(int x);
 void changeDirection(char key);
+void mapDesign();
+void mapScreen();
+void redrawScreen();
+void checkGame();
 //------------------------------------------------------------------------------------------
 int UP();
 int DOWN(int &x);
@@ -163,4 +167,104 @@ void foodRand()
         srand(time(GetTickCount()));
         foodPos=rand()%(H*W);
     }
+}
+//---------------------------------------------------------------------------------------------------
+void mapDesign()
+{
+    scoreCount();
+    foodRand();
+    box[foodPos]=food;
+    scoreScreen();
+
+    gotoxy(0,0);
+
+    for(int i=0;i<H*W;i++)
+    {
+        if(i<W || i>H*W-W-1) // i%W==0 || (i+1)%W==0)
+        {
+            box[i]=hrz;
+        }
+        if(i%W==0 || (i+1)%W==0)
+        {
+            box[i]=vtc;
+        }
+        box[0]=agl1;
+        box[W-1]=agl2;
+        box[H*W-W]=agl3;
+        box[H*W-1]=agl4;
+    }
+}
+
+void mapScreen()
+{
+    for(int i=0;i<H*W;i++)
+    {
+        if(i==position)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+        }
+        if(i<W || i>H*W-W || (i)%W==0 || (i+1)%W==0)
+        {
+            SetConsoleTextAttribute(hConsole, 10);
+        }
+        if(i==foodPos)
+        {
+            SetConsoleTextAttribute(hConsole, 14);
+        }
+        cout<<box[i];
+        SetConsoleTextAttribute(hConsole, 11);
+        if((i+1)%W==0)
+        {
+            cout<<endl;
+        }
+
+    }
+}
+
+void redrawScreen()
+{
+    mapDesign();
+    tail[position]=1;
+    checkGame();
+    Sleep(speed);
+    gotoxy(0,0);
+    drawHead(position);
+    makeTail();
+    mapScreen();
+    //tail[position]=1;
+    //makeTail();
+    for(int i=0;i<H*W;i++)
+    {
+        if(tail[i]==0)
+        {
+            box[i]=' ';
+        }
+        else
+        {
+            box[i]=Tail;
+        }
+    }
+
+    //box[position]=' ';
+}
+
+void checkGame()
+{
+    for(int i=0;i<H*W;i++)
+    {
+        if(tail[i]==score)
+        {
+            break;
+        }
+        else if(i==H*W-W)
+        {
+            gameRunning=false;
+            break;
+        }
+    }
+    if(position<W || position>H*W-W || position%W==0 || (position+1)%W==0)
+    {
+        gameRunning=false;
+    }
+
 }
