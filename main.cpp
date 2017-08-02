@@ -34,6 +34,7 @@ int DOWN(int &x);
 int RIGHT(int &x);
 int LEFT(int &x);         // to move the cursor to the beginning place
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+DWORD WINAPI GetTickCount();
 //-----------------------------------------Run Program--------------------------------------------------------------------------------------
 
 int main()
@@ -165,7 +166,7 @@ void foodRand()
 {
     while(foodPos<W || foodPos>H*W-W || foodPos%W==0 || (foodPos+1)%W==0 || position==foodPos || tail[foodPos]>0)
     {
-        srand(time(GetTickCount()));
+        srand(GetTickCount());
         foodPos=rand()%(H*W);
     }
 }
