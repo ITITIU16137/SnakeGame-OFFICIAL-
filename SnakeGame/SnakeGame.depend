@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1501660619 source:c:\users\asus\desktop\snakegame\main.cpp
+	<iostream>
+	<windows.h>
+	<conio.h>
+	<ctime>
+	<cstdlib>
+	"Sound.h"
+
+1501658988 c:\users\asus\desktop\snakegame\sound.h
+
+1501659031 source:c:\users\asus\desktop\snakegame\sound.cpp
+	"Sound.h"
+	<windows.h>
+
+1501661077 source:c:\users\asus\documents\github\demosnake-1\snakegame\main.cpp
+	<iostream>
+	<windows.h>
+	<conio.h>
+	<ctime>
+	<cstdlib>
+	"Sound.h"
+
+1501658988 c:\users\asus\documents\github\demosnake-1\snakegame\sound.h
+
+1501659031 source:c:\users\asus\documents\github\demosnake-1\snakegame\sound.cpp
+	"Sound.h"
+	<windows.h>
+
