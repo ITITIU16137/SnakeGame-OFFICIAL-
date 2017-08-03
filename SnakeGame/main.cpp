@@ -3,32 +3,29 @@
 #include <conio.h>
 #include <ctime>
 #include <cstdlib>
-
 #include "menuStart.h"
 #include "setConsole.h"
 #include "Sound.h"
 
 using namespace std;
 //----------------------------------------Declaration----------------------------------------------------
-const int H=20;
-const int W=40;
-const int speed=50;
-int foodPos=0;
+const int H = 20;
+const int W = 40;
+const int speed = 50;
+int foodPos = 0;
 char box[H*W];
 int tail[H*W];
-int position=H*W/2-W/2;
-int score=0;
-bool gameRunning=true;
-char food = 254, head= 219,Tail=176;
-char hrz=205,vtc=186,agl1=201,agl2=187,agl3=200,agl4=188;
+int position = H*W/2-W/2;
+int score = 0;
+bool gameRunning = true;
+char food = 254, head = 219,Tail = 176;
+char hrz = 205,vtc = 186,agl1 = 201,agl2 = 187,agl3 = 200,agl4 = 188;
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 DWORD WINAPI GetTickCount();
 //----------------------------------------Headers--------------------------------------------------------
 void mapDesign();
 void scoreScreen();
 void scoreCount();
-//void ShowConsoleCursor(bool showFlag); // to hide the cursor
-//void gotoxy(int x, int y);            // to move the cursor to the beginning place
 void ConsoleSetup();
 void mapScreen();
 void redrawScreen();
@@ -50,9 +47,9 @@ int main()
     system("cls");
 
     playSound("a.wav",1);
-    SetConsoleTextAttribute(hConsole, 11);
+    SetConsoleTextAttribute(hConsole,11);
     ShowConsoleCursor(false);
-    ConsoleSetup();
+    //ConsoleSetup();
     gotoxy(50,0);
     cout << " ____  __ _   __   __ _  ____     ___   __   _  _  ____ \n";
     gotoxy(50,1);
@@ -66,7 +63,7 @@ int main()
     mapScreen();
     tail[position]=1;
 
-    for(int i=0;i<H*W;i++)
+    for(int i=0; i<H*W ; i++)
     {
         tail[i]=0;
     }
@@ -85,14 +82,13 @@ int main()
     gotoxy(55,20);
     cout<<"   GAME OVER!!!!!!!"<<endl;
     gotoxy(0,25);
-    //cout<<tail[H*W/2-W/2]<<endl;
     system("pause");
     return 0;
 }
-
+//----------------------------------------------------------End of Run Program---------------------------------------------------
+//----------------------------------------------------------Control Snake--------------------------------------------------------
 void changeDirection(char key)
 {
-    //box[position]=' ';
     switch(key)
     {
     case 'w':
@@ -121,7 +117,7 @@ void changeDirection(char key)
         }
     }
 }
-
+//----------------------------------------------------------Print again after moving---------------------------------------------------
 void redrawScreen()
 {
     mapDesign();
@@ -152,10 +148,10 @@ void redrawScreen()
 
 
 
-//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------Check the condition of snake if snake---------------------------------------
 void checkGame()
 {
-    for(int i=0;i<H*W;i++)                // crash tail will die
+    for(int i=0; i<H*W; i++)                // crash tail will die
     {
         if(tail[i]>1 && i==position)
         {
@@ -169,7 +165,7 @@ void checkGame()
     }
 
 }
-
+//--------------------------------------------------------------Create All Elements-----------------------------------------------
 void mapDesign()
 {
     scoreCount();
@@ -179,7 +175,7 @@ void mapDesign()
 
     gotoxy(0,0);
 
-    for(int i=0;i<H*W;i++)
+    for(int i=0; i<H*W; i++)
     {
         if(i<W || i>H*W-W-1) // i%W==0 || (i+1)%W==0)
         {
@@ -195,10 +191,10 @@ void mapDesign()
         box[H*W-1]=agl4;
     }
 }
-
+//-----------------------------------------------------Print all element on screen and set color------------------------------
 void mapScreen()
 {
-    for(int i=0;i<H*W;i++)
+    for(int i=0; i<H*W; i++)
     {
         if(i==position)
         {
@@ -221,12 +217,12 @@ void mapScreen()
 
     }
 }
-
+//----------------------------------------------------Set initial Position of Snake---------------------------
 void drawHead(int x)
 {
     box[x]=head;
 }
-
+//---------------------------------------------------Food random----------------------------------------------------------
 void foodRand()
 {
     while(foodPos<W || foodPos>H*W-W || foodPos%W==0 || (foodPos+1)%W==0 || position==foodPos || tail[foodPos]>0)
@@ -236,10 +232,10 @@ void foodRand()
         foodPos=rand()%(H*W);
     }
 }
-
+//-------------------------------------------------------Tail Longger-----------------------------------------------------
 void makeTail()
 {
-    for(int i=0;i<W*H;i++)
+    for(int i=0; i<W*H; i++)
     {
         if(tail[i]>0)
         {
@@ -252,7 +248,7 @@ void makeTail()
     }
 }
 
-//--------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 int UP(int &x)
 {
    x=x-W;
@@ -274,7 +270,27 @@ int LEFT(int &x)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------
+//--------------------------------------------ScoreBoard-------------------------------------------------------------------
+
+void scoreScreen()
+{
+    gotoxy(60,10);
+    cout<<"Score: "<<score;
+}
+
+void scoreCount()
+{
+    if(position==foodPos)
+    {
+        score++;
+    }
+}
+/*void ConsoleSetup ()
+{
+    HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);    // Write on console
+    HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);    // Read from console
+    CONSOLE_CURSOR_INFO cursorInfo;
+}*/
 /*void gotoxy(int x, int y) {
     COORD pos = {x, y};
     HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -291,25 +307,5 @@ void ShowConsoleCursor(bool showFlag)
     cursorInfo.bVisible = showFlag; // set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
 }*/
-
-void scoreScreen()
-{
-    gotoxy(60,10);
-    cout<<"Score: "<<score;
-}
-
-void scoreCount()
-{
-    if(position==foodPos)
-    {
-        score++;
-    }
-}
-void ConsoleSetup ()
-{
-    HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);    // Write on console
-    HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);    // Read from console
-    CONSOLE_CURSOR_INFO cursorInfo;
-}
 
 
