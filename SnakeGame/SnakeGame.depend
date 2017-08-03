@@ -1,15 +1,18 @@
 # depslib dependency file v1.0
-1501660619 source:c:\users\asus\desktop\snakegame\main.cpp
+1501749375 source:c:\users\asus\desktop\snakegame\main.cpp
 	<iostream>
 	<windows.h>
 	<conio.h>
 	<ctime>
 	<cstdlib>
+	"menuStart.h"
+	"setConsole.h"
 	"Sound.h"
+	"EndScreen.h"
 
-1501658988 c:\users\asus\desktop\snakegame\sound.h
+1501667488 c:\users\asus\desktop\snakegame\sound.h
 
-1501659031 source:c:\users\asus\desktop\snakegame\sound.cpp
+1501728832 source:c:\users\asus\desktop\snakegame\sound.cpp
 	"Sound.h"
 	<windows.h>
 
@@ -57,5 +60,30 @@
 1501667489 source:c:\users\asus\documents\github\snakegame-official-\snakegame\setconsole.cpp
 	<iostream>
 	<windows.h>
+	"setConsole.h"
+
+1501667489 c:\users\asus\desktop\snakegame\menustart.h
+
+1501667489 c:\users\asus\desktop\snakegame\setconsole.h
+
+1501668134 source:c:\users\asus\desktop\snakegame\menustart.cpp
+	<iostream>
+	<conio.h>
+	"menuStart.h"
+	"setConsole.h"
+	"Sound.h"
+
+1501667489 source:c:\users\asus\desktop\snakegame\setconsole.cpp
+	<iostream>
+	<windows.h>
+	"setConsole.h"
+
+1501751853 c:\users\asus\desktop\snakegame\endscreen.h
+
+1501751813 source:c:\users\asus\desktop\snakegame\endscreen.cpp
+	<iostream>
+	<conio.h>
+	"Sound.h"
+	"EndScreen.h"
 	"setConsole.h"
 

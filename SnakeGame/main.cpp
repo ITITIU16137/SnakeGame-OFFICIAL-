@@ -6,7 +6,7 @@
 #include "menuStart.h"
 #include "setConsole.h"
 #include "Sound.h"
-
+#include "EndScreen.h"
 using namespace std;
 //----------------------------------------Declaration----------------------------------------------------
 const int H = 20;
@@ -47,7 +47,7 @@ int main()
     system("cls");
 
     playSound("a.wav",1);
-    SetConsoleTextAttribute(hConsole,11);
+    SetConsoleTextAttribute(hConsole,11); //blue
     ShowConsoleCursor(false);
     //ConsoleSetup();
     gotoxy(50,0);
@@ -75,12 +75,14 @@ int main()
             changeDirection(getch());
         }
     }
+    Sleep(2000);
+    system("cls");
    if(!gameRunning)
    {
-       playSound("b.wav",0);
+       EndScreen();
    }
-    gotoxy(55,20);
-    cout<<"   GAME OVER!!!!!!!"<<endl;
+    // gotoxy(55,20);
+    //cout<<"   GAME OVER!!!!!!!"<<endl;
     gotoxy(0,25);
     system("pause");
     return 0;
@@ -198,18 +200,18 @@ void mapScreen()
     {
         if(i==position)
         {
-            SetConsoleTextAttribute(hConsole, 12);
+            SetConsoleTextAttribute(hConsole, 12); //red
         }
         if(i<W || i>H*W-W || (i)%W==0 || (i+1)%W==0)
         {
-            SetConsoleTextAttribute(hConsole, 10);
+            SetConsoleTextAttribute(hConsole, 10); //green
         }
         if(i==foodPos)
         {
-            SetConsoleTextAttribute(hConsole, 14);
+            SetConsoleTextAttribute(hConsole, 14); //yellow
         }
         cout<<box[i];
-        SetConsoleTextAttribute(hConsole, 11);
+        SetConsoleTextAttribute(hConsole, 11); //light cyan
         if((i+1)%W==0)
         {
             cout<<endl;

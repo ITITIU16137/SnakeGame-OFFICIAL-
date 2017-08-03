@@ -20,6 +20,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="EndScreen.cpp" />
+		<Unit filename="EndScreen.h" />
 		<Unit filename="Sound.cpp" />
 		<Unit filename="Sound.h" />
 		<Unit filename="main.cpp" />
