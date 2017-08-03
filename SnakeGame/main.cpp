@@ -77,10 +77,7 @@ int main()
     }
     Sleep(2000);
     system("cls");
-   if(!gameRunning)
-   {
-       EndScreen();
-   }
+    EndScreen(score);
     // gotoxy(55,20);
     //cout<<"   GAME OVER!!!!!!!"<<endl;
     gotoxy(0,25);
