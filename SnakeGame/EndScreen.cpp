@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void EndScreen()
+void EndScreen(int x)
 {
     ShowConsoleCursor(false);
 
@@ -32,7 +32,8 @@ void EndScreen()
     cout << "                                                                                          \n";
     gotoxy(10,20);
     cout << "                                                                                          ";
-
+    gotoxy(50,21);
+    cout<<"Your Score: "<<x;
     playSound("b.wav",0);
     while(kbhit()!=1)
     {
