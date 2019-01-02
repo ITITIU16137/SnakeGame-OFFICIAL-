@@ -1,3 +1,0 @@
-D:/Github/Snake-Game/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/rebuild_cache.dir
-D:/Github/Snake-Game/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_d90e2.dir
-D:/Github/Snake-Game/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/edit_cache.dir
